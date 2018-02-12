@@ -1,0 +1,63 @@
+#!/bin/sh
+
+NAME=hbuw
+PIDFILE=/var/run/$NAME.pid
+LOGFILE=/var/log/$NAME.log
+
+ADDON_DIR=/usr/local/addons/${NAME}
+WWW_DIR=/etc/config/addons/www/${NAME}
+RCD_DIR=/usr/local/etc/config/rc.d
+
+start() 
+{
+  echo 'Starting...'
+  if [ ! -f /firmware/rftypes/hb_uw_sen_thpl.xml ]; then
+    cd ${ADDON_DIR}
+    ./installHBUW  > $LOGFILE 2> /dev/null & echo $!> $PIDFILE
+  else
+   echo "Nothing to do."
+  fi
+
+}
+
+stop() 
+{
+  echo 'Stopped'
+}
+
+case "$1" in
+start)
+start
+;;
+stop)
+stop
+;;
+uninstall)
+    mount -o remount,rw /
+    rm -f /firmware/rftypes/hb_uw_sen_thpl*
+    rm -f /www/config/img/devices/50/hb-uw-sen-thpl-*
+    rm -f /www/config/img/devices/250/hb-uw-sen-thpl-*
+    rm -rf $ADDON_DIR
+    rm -rf $WWW_DIR
+    mount -o remount,ro /
+  ;;
+  
+restart)
+stop
+start
+;;
+
+info)
+  echo "Info: <b>HB-UW-Sen-THPL Addon</b><br>"
+  echo "Info: <a href='https://github.com/kc-GitHub/Wettersensor'>https://github.com/kc-GitHub/Wettersensor</a>"
+  echo "Version: 1.0"
+  echo "Name: HB-UW-Sen-THPL"
+  echo "Operations: uninstall"
+  #echo "Config-Url: ${CONFIG_URL}"
+  echo "Update: /addons/hbuw/update-check.cgi"
+    ;;
+	
+*)
+start
+echo "Usage: $0 {start|stop|restart|uninstall}"
+esac
