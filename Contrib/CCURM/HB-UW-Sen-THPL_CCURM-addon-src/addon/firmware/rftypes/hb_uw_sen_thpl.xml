@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<device version="2" rx_modes="CONFIG,WAKEUP,LAZY_CONFIG" cyclic_timeout="600">
+  <supported_types>
+    <type name="HB-UW-Sen-THPL-I" id="HB-UW-Sen-THPL-I" updatable="true">
+      <parameter index="9.0" size="1.0" cond_op="GE" const_value="12" />
+      <parameter index="10.0" size="2.0" const_value="0xF101" />
+    </type>
+    <type name="HB-UW-Sen-THPL-O" id="HB-UW-Sen-THPL-O" updatable="true">
+      <parameter index="9.0" size="1.0" cond_op="GE" const_value="12" />
+      <parameter index="10.0" size="2.0" const_value="0xF102" />
+    </type>
+  </supported_types>
+  <paramset type="MASTER" id="hb_uw_sen_thpl_dev_master">
+    <parameter id="BURST_RX">
+      <logical type="boolean" default="false" />
+      <physical type="integer" interface="config" list="0" index="1" size="1.0" />
+    </parameter>
+    <parameter id="DEVICE_LED_MODE">
+      <logical type="option">
+        <option id="OFF" default="true" />
+        <option id="ON" />
+      </logical>
+      <physical type="integer" interface="config" list="0" index="5.6" size="0.2" />
+      <conversion type="integer_integer_map">
+        <value_map device_value="0x00" parameter_value="0" />
+        <value_map device_value="0x01" parameter_value="1" />
+      </conversion>
+    </parameter>
+    <parameter id="LOW_BAT_LIMIT">
+      <logical type="float" min="1.0" max="5" default="2.6" unit="V" />
+      <physical type="integer" interface="config" list="0" index="18" size="1" />
+      <conversion type="float_integer_scale" factor="10" />
+    </parameter>
+    <parameter id="TRANSMIT_DEV_TRY_MAX">
+      <logical type="integer" min="1.0" max="10" default="6" />
+      <physical type="integer" interface="config" list="0" index="20" size="1" />
+    </parameter>
+    <parameter id="Altitude">
+      <logical type="integer" min="-500" max="10000" default="0" unit="m" />
+      <physical type="integer" interface="config" list="0" index="36" size="2" />
+    </parameter>
+  </paramset>
+  <channels>
+    <channel index="0" type="MAINTENANCE" ui_flags="internal" class="maintenance" count="1">
+      <paramset type="MASTER" id="maint_ch_master"></paramset>
+      <paramset type="VALUES" id="maint_ch_values">
+        <parameter id="UNREACH" operations="read,event" ui_flags="service">
+          <logical type="boolean" />
+          <physical type="integer" interface="internal" value_id="UNREACH" />
+        </parameter>
+        <parameter id="STICKY_UNREACH" operations="read,write,event" ui_flags="service,sticky">
+          <logical type="boolean" />
+          <physical type="integer" interface="internal" value_id="STICKY_UNREACH" />
+        </parameter>
+        <parameter id="CONFIG_PENDING" operations="read,event" ui_flags="service">
+          <logical type="boolean" />
+          <physical type="integer" interface="internal" value_id="CONFIG_PENDING" />
+        </parameter>
+        <parameter id="LOWBAT" operations="read,event" ui_flags="service">
+          <logical type="boolean" />
+          <physical type="integer" interface="internal" value_id="LOWBAT" />
+        </parameter>
+        <parameter id="RSSI_DEVICE" operations="read,event">
+          <logical type="integer" />
+          <physical type="integer" interface="internal" value_id="RSSI_DEVICE" />
+        </parameter>
+        <parameter id="RSSI_PEER" operations="read,event">
+          <logical type="integer" />
+          <physical type="integer" interface="internal" value_id="RSSI_PEER" />
+        </parameter>
+        <parameter id="DEVICE_IN_BOOTLOADER" operations="read,event" ui_flags="service">
+          <logical type="boolean" />
+          <physical type="integer" interface="internal" value_id="DEVICE_IN_BOOTLOADER" />
+        </parameter>
+        <parameter id="UPDATE_PENDING" operations="read,event" ui_flags="service">
+          <logical type="boolean" />
+          <physical type="integer" interface="internal" value_id="UPDATE_PENDING" />
+        </parameter>
+      </paramset>
+    </channel>
+    <channel index="1" type="WEATHER" autoregister="true">
+      <link_roles>
+        <source name="WEATHER_TH" />
+      </link_roles>
+      <paramset type="MASTER" id="hb_uw_sen_thpl_ch_master"></paramset>
+      <paramset type="VALUES" id="hb_uw_sen_thpl_ch_values">
+        <parameter id="TEMPERATURE" operations="read,event">
+          <logical type="float" min="-40.0" max="80.0" unit="°C" />
+          <physical type="integer" interface="command" value_id="TEMPERATURE">
+            <event frame="WEATHER_EVENT" />
+          </physical>
+          <conversion type="float_integer_scale" factor="10.0" />
+          <description>
+            <field id="AutoconfRoles" value="WEATHER" />
+          </description>
+        </parameter>
+        <parameter id="HUMIDITY" operations="read,event">
+          <logical type="integer" min="1" max="99" unit="%">
+            <special_value id="NO_SENSOR" value="0" />
+          </logical>
+          <physical type="integer" interface="command" value_id="HUMIDITY">
+            <event frame="WEATHER_EVENT" />
+          </physical>
+          <description>
+            <field id="AutoconfRoles" value="WEATHER" />
+          </description>
+        </parameter>
+        <parameter id="AIR_PRESSURE" operations="read,event">
+          <logical type="float" min="500.0" max="1100.0" unit="hPa">
+            <special_value id="NO_SENSOR" value="0.0" />
+          </logical>
+          <physical type="integer" interface="command" value_id="AIR_PRESSURE">
+            <event frame="WEATHER_EVENT" />
+          </physical>
+          <conversion type="float_integer_scale" factor="10.0" />
+          <description>
+            <field id="AutoconfRoles" value="WEATHER" />
+          </description>
+        </parameter>
+        <parameter id="LUMINOSITY" operations="read,event">
+          <logical type="float" min="0" max="65535">
+            <special_value id="NO_SENSOR" value="65538" />
+          </logical>
+          <physical type="integer" interface="command" value_id="LUMINOSITY">
+            <event frame="WEATHER_EVENT" />
+          </physical>
+          <conversion type="float_integer_scale" factor="100.0" />
+        </parameter>
+        <parameter id="BatteryVoltage" operations="read,event">
+          <logical type="float" min="0.4" max="5.5" unit="V" />
+          <physical type="integer" interface="command" value_id="BatteryVoltage">
+            <event frame="WEATHER_EVENT" />
+          </physical>
+          <conversion type="float_integer_scale" factor="1000.0" />
+        </parameter>
+      </paramset>
+      <paramset type="LINK" id="hb_uw_sen_thpl_ch_link"></paramset>
+    </channel>
+  </channels>
+  <frames>
+    <frame id="WEATHER_EVENT" direction="from_device" event="true" fixed_channel="1" type="0x70">
+      <parameter type="integer" signed="true" index="9.0" size="1.7" param="TEMPERATURE" />
+      <parameter type="integer" index="11.0" size="1.0" param="HUMIDITY" />
+      <parameter type="integer" index="12.0" size="2.0" param="AIR_PRESSURE" />
+      <parameter type="integer" index="14.0" size="4.0" param="LUMINOSITY" />
+      <parameter type="integer" index="18.0" size="2.0" param="BatteryVoltage" />
+    </frame>
+  </frames>
+  <paramset_defs></paramset_defs>
+</device>
