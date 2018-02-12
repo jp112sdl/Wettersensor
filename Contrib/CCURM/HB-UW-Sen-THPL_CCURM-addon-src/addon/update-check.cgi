@@ -1,5 +1,5 @@
 #!/bin/tclsh
-set checkURL    "https://raw.githubusercontent.com/jp112sdl/Wettersensor/blob/Firmware_newAsksin/Contrib/CCURM/HB-UW-Sen-THPL_CCURM-addon-src/addon/VERSION"
+set checkURL    "https://raw.githubusercontent.com/jp112sdl/Wettersensor/Firmware_newAsksin/Contrib/CCURM/HB-UW-Sen-THPL_CCURM-addon-src/addon/VERSION"
 set downloadURL "https://raw.githubusercontent.com/jp112sdl/Wettersensor/blob/Firmware_newAsksin/Contrib/CCURM/HB-UW-Sen-THPL_CCURM-addon.tgz"
 
 catch {
