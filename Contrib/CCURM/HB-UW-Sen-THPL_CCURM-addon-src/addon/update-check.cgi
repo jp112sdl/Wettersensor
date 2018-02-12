@@ -1,6 +1,6 @@
 #!/bin/tclsh
 set checkURL    "https://raw.githubusercontent.com/jp112sdl/Wettersensor/master/Contrib/CCURM/HB-UW-Sen-THPL_CCURM-addon-src/addon/VERSION"
-set downloadURL "https://raw.githubusercontent.com/jp112sdl/Wettersensor/blob/master/Contrib/CCURM/HB-UW-Sen-THPL_CCURM-addon.tgz"
+set downloadURL "https://github.com/jp112sdl/Wettersensor/raw/master/Contrib/CCURM/HB-UW-Sen-THPL_CCURM-addon.tgz"
 
 catch {
   set input $env(QUERY_STRING)
