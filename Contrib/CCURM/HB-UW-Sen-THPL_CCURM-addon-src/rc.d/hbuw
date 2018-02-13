@@ -37,6 +37,14 @@ uninstall)
     rm -f /firmware/rftypes/hb_uw_sen_thpl*
     rm -f /www/config/img/devices/50/hb-uw-sen-thpl-*
     rm -f /www/config/img/devices/250/hb-uw-sen-thpl-*
+    #if [ -f $ADDON_DIR\DEVDB.tcl.hbuwsave ]; then
+    #  rm -f /www/config/devdescr/DEVDB.tcl
+    #  mv $ADDON_DIR\DEVDB.tcl.hbuwsave /www/config/devdescr/DEVDB.tcl
+    #fi
+    #if [ -f $ADDON_DIR\webui.js.hbuwsave ]; then
+    #  rm -f /www/webui/webui.js
+    #  mv $ADDON_DIR\webui.js.hbuwsave /www/webui/webui.js
+    #fi
     rm -rf $ADDON_DIR
     rm -rf $WWW_DIR
     mount -o remount,ro /

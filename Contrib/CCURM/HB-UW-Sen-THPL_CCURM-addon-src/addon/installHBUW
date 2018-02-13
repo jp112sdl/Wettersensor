@@ -1,5 +1,8 @@
 #!/bin/sh
 
+ADDON_NAME=hbuw
+ADDON_DIR=/usr/local/addons/$ADDON_NAME
+
 mount -o remount,rw /
 
 ###########################
@@ -22,7 +25,7 @@ devdescrInsert="$devdescrInsert HB-UW-Sen-THPL-I {{50 \/config\/img\/devices\/50
 devdescrInsert="$devdescrInsert HB-UW-Sen-THPL-O {{50 \/config\/img\/devices\/50\/hb-uw-sen-thpl-o_thumb.png} {250 \/config\/img\/devices\/250\/hb-uw-sen-thpl-o.png}} "
 
 if [ -z "`cat $devdescrFile | grep \"$device\"`" ]; then
-	cp -a $devdescrFile $devdescrFile.save
+	cp -a $devdescrFile $ADDON_DIR/DEVDB.tcl.hbuwsave
 	sed -i "s/\($devdescrSearch\)/\1$devdescrInsert/g" $devdescrFile
 fi
 
@@ -40,12 +43,13 @@ webuiInsert="$webuiInsert DEV_PATHS['HB-UW-Sen-THPL-I']['250'] = '\/config\/img\
 
 webuiInsert="$webuiInsert DEV_HIGHLIGHT['HB-UW-Sen-THPL-O'] = new Object();\n"
 webuiInsert="$webuiInsert DEV_LIST.push('HB-UW-Sen-THPL-O');\n"
-webuiInsert="$webuiInsert DEV_DESCRIPTION['HB-UW-Sen-THPL-O']='Universal Funk- Temperatur-\/ Feuchte-\/ Luftdruck-\/ Helligkeitssensor (Außen)';\n"
+webuiInsert="$webuiInsert DEV_DESCRIPTION['HB-UW-Sen-THPL-O']='Universal Funk- Temperatur-\/ Feuchte-\/ Luftdruck-\/ Helligkeitssensor (Au&szlig;en)';\n"
 webuiInsert="$webuiInsert DEV_PATHS['HB-UW-Sen-THPL-O'] = new Object();\n"
 webuiInsert="$webuiInsert DEV_PATHS['HB-UW-Sen-THPL-O']['50'] = '\/config\/img\/devices\/50\/hb-uw-sen-thpl-o_thumb.png';\n"
 webuiInsert="$webuiInsert DEV_PATHS['HB-UW-Sen-THPL-O']['250'] = '\/config\/img\/devices\/250\/hb-uw-sen-thpl-o.png';\n"
 
 if [ -z "`cat $webuiFile | grep \"$device\"`" ]; then
+	cp -a $webuiFile $ADDON_DIR/webui.js.hbuwsave
 	sed -i "s/\($webuiSearch\)/\1$webuiInsert/g" $webuiFile
 fi
 
