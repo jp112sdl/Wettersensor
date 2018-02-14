@@ -43,7 +43,7 @@ webuiInsert="$webuiInsert DEV_PATHS['HB-UW-Sen-THPL-I']['250'] = '\/config\/img\
 
 webuiInsert="$webuiInsert DEV_HIGHLIGHT['HB-UW-Sen-THPL-O'] = new Object();\n"
 webuiInsert="$webuiInsert DEV_LIST.push('HB-UW-Sen-THPL-O');\n"
-webuiInsert="$webuiInsert DEV_DESCRIPTION['HB-UW-Sen-THPL-O']='Universal Funk- Temperatur-\/ Feuchte-\/ Luftdruck-\/ Helligkeitssensor (Au&szlig;en)';\n"
+webuiInsert="$webuiInsert DEV_DESCRIPTION['HB-UW-Sen-THPL-O']='Universal Funk- Temperatur-\/ Feuchte-\/ Luftdruck-\/ Helligkeitssensor (Au\&szlig;en)';\n"
 webuiInsert="$webuiInsert DEV_PATHS['HB-UW-Sen-THPL-O'] = new Object();\n"
 webuiInsert="$webuiInsert DEV_PATHS['HB-UW-Sen-THPL-O']['50'] = '\/config\/img\/devices\/50\/hb-uw-sen-thpl-o_thumb.png';\n"
 webuiInsert="$webuiInsert DEV_PATHS['HB-UW-Sen-THPL-O']['250'] = '\/config\/img\/devices\/250\/hb-uw-sen-thpl-o.png';\n"
