@@ -58,7 +58,7 @@ start
 info)
   echo "Info: <b>HB-UW-Sen-THPL Addon</b><br>"
   echo "Info: <a href='https://github.com/kc-GitHub/Wettersensor'>https://github.com/kc-GitHub/Wettersensor</a>"
-  echo "Version: 1.0"
+  echo "Version: $(cat ${ADDON_DIR}/VERSION)"
   echo "Name: HB-UW-Sen-THPL"
   echo "Operations: uninstall"
   #echo "Config-Url: ${CONFIG_URL}"
